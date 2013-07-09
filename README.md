@@ -3,6 +3,32 @@ Phormium Model Generator
 
 Model class generator for [Phormium](https://github.com/ihabunek/phormium).
 
+Currently supports MySQL and Informix. Support for PostgreSQL and SQLite is
+pending.
+
+Installation
+------------
+
+Install using [Composer](http://getcomposer.org/).
+
+Create a file called `composer.json` with the following contents:
+```json
+{
+    "require": {
+        "phormium/modgen": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
+```
+
+Download composer and run:
+```
+php composer.phar install --no-dev
+```
+
+The script for running modgen will be: `vendor/bin/modgen`, abbrevated to
+`modgen` in the usage examples.
+
 Usage
 -----
 
