@@ -1,6 +1,16 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+// Installed via composer
+$autoload = __DIR__ . '/../../../autoload.php';
+if (file_exists($autoload)) {
+	include $autoload;
+}
+
+// Installed from source
+$autoload = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoload)) {
+	include $autoload;
+}
 
 use Phormium\ModGen\Console\Command;
 use Phormium\ModGen\Console\Application;
