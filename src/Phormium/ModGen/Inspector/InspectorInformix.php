@@ -93,14 +93,8 @@ class InspectorInformix extends Inspector
         $args = array('tabname' => $table);
 
         $data = $conn->preparedQuery($query, $args);
-        $count = count($data);
-
-        if ($count == 0) {
-            throw new \Exception("Cannot find primary key constraint for $database:$table.");
-        }
-
-        if ($count > 1) {
-            throw new \Exception("Multiple primary key constraints found for $database:$table.");
+        if (empty($data)) {
+            return array();
         }
 
         $indexName = $data[0]['idxname'];
@@ -110,14 +104,8 @@ class InspectorInformix extends Inspector
         $args = array('idxname' => $indexName);
 
         $data = $conn->preparedQuery($query, $args);
-        $count = count($data);
-
-        if ($count == 0) {
-            throw new \Exception("Cannot find primary key index for $database:$table.");
-        }
-
-        if ($count > 1) {
-            throw new \Exception("Multiple primary key indices found for $database:$table.");
+        if (empty($data)) {
+            return array();
         }
 
         $index = $data[0];
