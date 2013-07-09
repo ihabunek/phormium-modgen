@@ -90,9 +90,8 @@ class Command extends Console\Command\Command
             }
             catch (\Exception $ex)
             {
-                $output->writeln("");
-                $output->writeln("<error>Failed generation for $database:$table\n$ex</error>");
-                $output->writeln("");
+                $msg = $ex->getMessage();
+                $output->writeln("<error>Failed generation for $database:$table - $msg</error>");
             }
         }
         $output->writeln("");
