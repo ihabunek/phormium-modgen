@@ -23,32 +23,37 @@ class InspectorInformix extends Inspector
     public function tableExists($database, $table)
     {
         $conn = DB::getConnection($database);
-        $query = "SELECT count(*) FROM systables WHERE tabname = :table";
-        $data = $conn->preparedQuery($query, compact('table'), \PDO::FETCH_NUM);
-        $count = $data[0][0];
+        $query = "
+            SELECT count(*) AS count
+            FROM systables
+            WHERE tabname = :table
+        ";
+        $args = compact('table');
+        $data = $conn->preparedQuery($query, $args);
+        $count = $data[0]['count'];
         return $count > 0;
     }
 
     public function getTables($database)
     {
         $conn = DB::getConnection($database);
-        $data = $conn->query("SELECT * FROM systables WHERE tabtype = 'T';", \PDO::FETCH_ASSOC);
+        $query = "
+            SELECT tabid, tabname
+            FROM systables
+            WHERE tabtype = 'T'
+              AND tabid >= 100 -- skip system tables
+            ORDER BY tabname;
+        ";
+
+        $data = $conn->query($query);
 
         $tables = array();
         foreach($data as $row) {
-            $table = $row['tabname'];
-
-            // System tables have tabid < 100
-            if ($row['tabid'] < 100) {
-                continue;
-            }
-
             // Ignore explicitely ignored tables
-            if (in_array($table, $this->ignoreTables)) {
-                continue;
+            $table = $row['tabname'];
+            if (!in_array($table, $this->ignoreTables)) {
+                $tables[] = $table;
             }
-
-            $tables[] = $row['tabname'];
         }
 
         return $tables;
@@ -61,9 +66,10 @@ class InspectorInformix extends Inspector
             SELECT colno, colname
             FROM syscolumns sc
             JOIN systables st ON st.tabid = sc.tabid
-            WHERE st.tabname = :tabname;";
-        $args = array('tabname' => $table);
+            WHERE st.tabname = :tabname;
+        ";
 
+        $args = array('tabname' => $table);
         $data = $conn->preparedQuery($query, $args);
 
         $columns = array();
@@ -80,19 +86,16 @@ class InspectorInformix extends Inspector
 
         // Find the primary key index name
         $query = "
-        SELECT
-            c.constrid,
-            c.idxname
-        FROM
-            sysconstraints c
-        JOIN systables t ON t.tabid = c.tabid
-        WHERE
-            t.tabname = :tabname
-            and c.constrtype = 'P' -- Primary key constraint
+            SELECT c.idxname
+            FROM sysconstraints c
+            JOIN systables t ON t.tabid = c.tabid
+            WHERE t.tabname = :tabname
+              AND c.constrtype = 'P' -- Primary key constraint
         ;";
-        $args = array('tabname' => $table);
 
+        $args = array('tabname' => $table);
         $data = $conn->preparedQuery($query, $args);
+
         if (empty($data)) {
             return array();
         }
@@ -100,10 +103,15 @@ class InspectorInformix extends Inspector
         $indexName = $data[0]['idxname'];
 
         // Fetch the constraing to find which columns are in it
-        $query = "SELECT * FROM sysindexes WHERE idxname = :idxname;";
-        $args = array('idxname' => $indexName);
+        $query = "
+            SELECT *
+            FROM sysindexes
+            WHERE idxname = :idxname;
+        ";
 
+        $args = array('idxname' => $indexName);
         $data = $conn->preparedQuery($query, $args);
+
         if (empty($data)) {
             return array();
         }
