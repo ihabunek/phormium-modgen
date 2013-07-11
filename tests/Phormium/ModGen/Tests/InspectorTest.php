@@ -2,17 +2,12 @@
 
 namespace Phormium\ModGen\Tests;
 
-use Phormium\DB;
+use Phormium\Config;
 use Phormium\ModGen\Generator;
 
 class InspectorTest extends \PHPUnit_Framework_TestCase
 {
 	private $inspector;
-
-    public static function setUpBeforeClass()
-    {
-        DB::configure(PHORMIUM_CONFIG_FILE);
-    }
 
 	public function setUp()
 	{

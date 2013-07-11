@@ -2,19 +2,12 @@
 
 namespace Phormium\ModGen\Tests;
 
-use Phormium\DB;
 use Phormium\ModGen\Generator;
 
 class GenerateTest extends \PHPUnit_Framework_TestCase
 {
 	private $generator;
-
 	private $namespace = 'God\\Save\\The\\Queen';
-
-    public static function setUpBeforeClass()
-    {
-        DB::configure(PHORMIUM_CONFIG_FILE);
-    }
 
 	public function setUp()
 	{
