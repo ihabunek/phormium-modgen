@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit bootstrap="../bootstrap.php" colors="true">
+    <testsuite name="Phormium test suite">
+        <directory>../../../tests/Phormium/ModGen/Tests</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">Phormium</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <const name="PHORMIUM_CONFIG_FILE" value="tests/config/mysql/config.json"/>
+    </php>
+</phpunit>

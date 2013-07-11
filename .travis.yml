@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+env:
+  - DB=mysql
+# - DB=sqlite
+# - DB=postgres
+
+before_script:
+  - composer install
+  - mkdir target
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql < tests/config/mysql/setup.sql; fi"
+# - sh -c "if [ '$DB' = 'sqlite' ]; then sqlite3 tmp/test.db < tests/config/sqlite/setup.sql; fi"
+# - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'drop database if exists phormium_tests;' -U postgres; fi"
+# - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'create database phormium_tests;' -U postgres; fi"
+# - sh -c "if [ '$DB' = 'postgres' ]; then psql -f tests/config/postgres/setup.sql -d phormium_tests -U postgres; fi"
+
+script: phpunit --configuration tests/config/$DB/phpunit.xml
