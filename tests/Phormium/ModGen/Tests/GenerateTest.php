@@ -2,6 +2,7 @@
 
 namespace Phormium\ModGen\Tests;
 
+use Phormium\DB;
 use Phormium\ModGen\Generator;
 
 class GenerateTest extends \PHPUnit_Framework_TestCase

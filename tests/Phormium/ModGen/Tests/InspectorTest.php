@@ -2,7 +2,7 @@
 
 namespace Phormium\ModGen\Tests;
 
-use Phormium\Config;
+use Phormium\DB;
 use Phormium\ModGen\Generator;
 
 class InspectorTest extends \PHPUnit_Framework_TestCase
