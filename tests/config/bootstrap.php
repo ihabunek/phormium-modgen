@@ -1,6 +1,8 @@
 <?php
 
-$loader = require __DIR__ . '/../../vendor/autoload.php';
-$loader->add('Phormium\\ModGen\\Tests', __DIR__ . '/../');
+$root = __DIR__ . '/../..';
 
-Phormium\DB::configure(PHORMIUM_CONFIG_FILE);
+$loader = require "$root/vendor/autoload.php";
+$loader->add('Phormium\\ModGen\\Tests', "$root/tests/");
+
+Phormium\DB::configure("$root/" . PHORMIUM_CONFIG_FILE);
