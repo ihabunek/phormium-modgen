@@ -9,6 +9,11 @@ class InspectorTest extends \PHPUnit_Framework_TestCase
 {
 	private $inspector;
 
+    public static function setUpBeforeClass()
+    {
+        DB::configure(PHORMIUM_CONFIG_FILE);
+    }
+
 	public function setUp()
 	{
 		$generator = new Generator();
