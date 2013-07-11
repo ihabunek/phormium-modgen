@@ -63,7 +63,33 @@ class Generator
         return new $class();
     }
 
+    /**
+     * Generates the Model class code for a given table and saves it to the
+     * target directory.
+     * @return array Array with two string values: name of the generated class
+     *      and the path to which the class was saved.
+     */
     public function generateModel($database, $table, $namespace = null)
+    {
+        $model = $this->generateModelCode($database, $table, $namespace);
+        $class = $this->getModelName($table);
+
+        $target = $this->getTargetDirectory($namespace);
+        $path = "$target" . DIRECTORY_SEPARATOR . "$class.php";
+
+        $success = file_put_contents($path, $model);
+        if ($success === false) {
+            throw new \Exception("Failed saving model to [$path].");
+        }
+
+        return array($class, $path);
+    }
+
+    /**
+     * Generates the Model class code for a given table.
+     * @return string
+     */
+    public function generateModelCode($database, $table, $namespace = null)
     {
         $inspector = $this->getInspector($database);
         if (!$inspector->tableExists($database, $table)) {
@@ -110,15 +136,7 @@ class Generator
         }
         $model .= "}\n";
 
-        $target = $this->getTargetDirectory($namespace);
-        $path = "$target" . DIRECTORY_SEPARATOR . "$class.php";
-
-        $success = file_put_contents($path, $model);
-        if ($success === false) {
-            throw new \Exception("Failed saving model to [$path].");
-        }
-
-        return array($class, $path);
+        return $model;
     }
 
     /** Generates a Model class name in CamelCase based on the table name. */
