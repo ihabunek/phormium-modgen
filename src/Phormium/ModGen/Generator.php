@@ -132,7 +132,7 @@ class Generator
 
         foreach ($columns as $column)
         {
-            $model .= "    public \$$column;\n";
+            $model .= "    public \$".strtolower($column).";\n";
         }
         $model .= "}\n";
 
