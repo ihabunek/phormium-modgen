@@ -72,9 +72,11 @@ class InspectorPostgreSQL extends Inspector
         $conn = DB::getConnection($database);
 
         // Find the primary key index name
+        // as demonstrated in the docs:
+        // http://wiki.postgresql.org/wiki/Retrieve_primary_key_columns
         $query = "
             SELECT               
-              pg_attribute.attname, 
+              pg_attribute.attname as column_name, 
               format_type(pg_attribute.atttypid, pg_attribute.atttypmod) 
             FROM pg_index, pg_class, pg_attribute 
             WHERE 
