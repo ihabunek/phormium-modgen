@@ -9,7 +9,8 @@ class Generator
     /** Maps drivers to corresponding inspectors. */
     private static $driverMap = array(
         'informix' => '\\Phormium\\ModGen\\Inspector\\InspectorInformix',
-        'mysql' => '\\Phormium\\ModGen\\Inspector\\InspectorMySQL'
+        'mysql' => '\\Phormium\\ModGen\\Inspector\\InspectorMySQL',
+        'pgsql' => '\\Phormium\\ModGen\\Inspector\\InspectorPostgreSQL'
     );
 
     /** Tables to ignore. */
