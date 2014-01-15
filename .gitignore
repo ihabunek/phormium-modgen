@@ -1,7 +1,6 @@
-target
+target/*
 vendor
 tmp
 php_errors.log
 composer.phar
 composer.lock
-config.json
