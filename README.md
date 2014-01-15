@@ -3,8 +3,10 @@ Phormium Model Generator
 
 Model class generator for [Phormium](https://github.com/ihabunek/phormium).
 
-Currently supports MySQL and Informix. Support for PostgreSQL and SQLite is
-pending.
+Currently supports MySQL, PostgreSQL and Informix.
+
+[![Build Status](https://travis-ci.org/ihabunek/phormium-modgen.png)](https://travis-ci.org/ihabunek/phormium)
+
 
 Installation
 ------------
@@ -15,15 +17,14 @@ Create a file called `composer.json` with the following contents:
 ```json
 {
     "require": {
-        "phormium/modgen": "dev-master"
-    },
-    "minimum-stability": "dev"
+        "phormium/modgen": "0.*"
+    }
 }
 ```
 
 Download composer and run:
 ```
-php composer.phar install --no-dev
+php composer.phar install
 ```
 
 The script for running modgen will be `vendor/bin/modgen` for *nix and Mac and
@@ -34,8 +35,9 @@ Usage
 -----
 
 Before starting, you need to have a Phormium configuration file which defines
-the database from which you want to generate models. The config file defaults to
-`config.json`.
+the database from which you want to generate models. If a config file is not
+specified, modgen will look for a file named "config.json" in the working
+directory.
 
 Generate models for all tables in a database:
 ```
@@ -73,4 +75,4 @@ modgen backoffice person invoice
 
 License
 -------
-Licensed under the MIT license. See [LICENSE.md](License.md).
+Licensed under the MIT license. See [LICENSE.md](LICENSE.md).
