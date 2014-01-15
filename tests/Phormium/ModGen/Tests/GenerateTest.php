@@ -96,9 +96,9 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 		$this->assertContainsOnlyInstancesOf("\\God\\Save\\The\\Queen\\KillerQueen", $data);
 
 		$item = $data[0];
-		$this->assertSame('1', $item->killer);
-		$this->assertSame('2', $item->queen);
-		$this->assertSame('3', $item->gunpowder);
+		$this->assertEquals(1, $item->killer);
+		$this->assertEquals(2, $item->queen);
+		$this->assertEquals(3, $item->gunpowder);
 		$this->assertSame('X', $item->gelatine);
 		$this->assertSame('Y', $item->dynamite);
 		$this->assertSame('Z', $item->laser_beam);
@@ -113,8 +113,8 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 		$this->assertContainsOnlyInstancesOf("\\God\\Save\\The\\Queen\\SlightlyMad", $data);
 
 		$item = $data[0];
-		$this->assertSame('6', $item->it);
-		$this->assertSame('6', $item->finally);
-		$this->assertSame('6', $item->happened);
+		$this->assertEquals(6, $item->it);
+		$this->assertEquals(6, $item->finally);
+		$this->assertEquals(6, $item->happened);
 	}
 }
