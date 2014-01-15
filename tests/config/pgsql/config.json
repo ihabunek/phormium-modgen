@@ -1,0 +1,9 @@
+{
+    "databases": {
+        "testdb": {
+            "dsn": "pgsql:host=localhost;dbname=phormium_tests",
+            "username": "postgres",
+            "password": ""
+        }
+    }
+}
