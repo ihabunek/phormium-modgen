@@ -75,14 +75,14 @@ class InspectorPostgreSQL extends Inspector
         // as demonstrated in the docs:
         // http://wiki.postgresql.org/wiki/Retrieve_primary_key_columns
         $query = "
-            SELECT               
-              pg_attribute.attname as column_name, 
-              format_type(pg_attribute.atttypid, pg_attribute.atttypmod) 
-            FROM pg_index, pg_class, pg_attribute 
-            WHERE 
+            SELECT
+              pg_attribute.attname as column_name,
+              format_type(pg_attribute.atttypid, pg_attribute.atttypmod)
+            FROM pg_index, pg_class, pg_attribute
+            WHERE
               pg_class.oid = :table::regclass AND
               indrelid = pg_class.oid AND
-              pg_attribute.attrelid = pg_class.oid AND 
+              pg_attribute.attrelid = pg_class.oid AND
               pg_attribute.attnum = any(pg_index.indkey)
               AND indisprimary;
         ;";
