@@ -5,3 +5,4 @@ php_errors.log
 composer.phar
 composer.lock
 modgen.phar
+phpunit.xml

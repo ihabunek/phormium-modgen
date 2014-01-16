@@ -7,18 +7,22 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class Application extends BaseApplication
 {
-    private static $logo = <<<EOD
+    const VERSION = '@modgen_version@';
+    const RELEASE_DATE = '@modgen_release_date@';
+
+    private static $logo = '
     ____  __                         _
    / __ \/ /_  ____  _________ ___  (_)_  ______ ___
   / /_/ / __ \/ __ \/ ___/ __ `__ \/ / / / / __ `__ \
  / ____/ / / / /_/ / /  / / / / / / / /_/ / / / / / /
 /_/   /_/ /_/\____/_/  /_/ /_/ /_/_/\__,_/_/ /_/ /_/
-EOD;
+M o d e l   G e n e r a t o r
+';
 
 	/** Set project name and version. */
     public function __construct()
     {
-        parent::__construct('Phormium model generator', 'dev-master');
+        parent::__construct('Phormium Model Generator', self::VERSION);
     }
 
     /** Add logo to help text. */
@@ -27,10 +31,12 @@ EOD;
         return self::$logo . "\n\n" . parent::getHelp();
     }
 
-    /** Set default command. */
-	protected function getCommandName(InputInterface $input)
+    public function getLongVersion()
     {
-        return 'modgen';
+        return parent::getLongVersion() . sprintf(
+            ' released on <comment>%s</comment>',
+            self::RELEASE_DATE
+        );
     }
 
 	/**
@@ -41,18 +47,7 @@ EOD;
     protected function getDefaultCommands()
     {
         $defaultCommands = parent::getDefaultCommands();
-        $defaultCommands[] = new Command();
+        $defaultCommands[] = new GenerateCommand();
         return $defaultCommands;
-    }
-
-	/**
-     * Overridden so that the application doesn't expect the command
-     * name to be the first argument.
-     */
-    public function getDefinition()
-    {
-        $inputDefinition = parent::getDefinition();
-        $inputDefinition->setArguments();
-        return $inputDefinition;
     }
 }

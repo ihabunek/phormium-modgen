@@ -8,10 +8,14 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 {
 	private $generator;
 	private $namespace = 'God\\Save\\The\\Queen';
+	private $target;
+	private $expected;
 
 	public function setUp()
 	{
-		$this->generator = new Generator();
+		$this->target = realpath(__DIR__ . '/../../../../target');
+		$this->expected = realpath(__DIR__ . '/../../../expected');
+		$this->generator = new Generator($this->target);
 	}
 
 	/*
@@ -21,23 +25,21 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 	public function testGenerateCode1()
 	{
 		$actual = $this->generator->generateModelCode('testdb', 'bohemian_rhapsody', $this->namespace);
-		$expected = file_get_contents(__DIR__ . '/../../../expected/BohemianRhapsody.php');
+		$expected = file_get_contents($this->expected . '/BohemianRhapsody.php');
 		self::assertSame($expected, $actual);
-
 	}
 
 	public function testGenerateCode2()
 	{
 		$actual = $this->generator->generateModelCode('testdb', 'killer_queen', $this->namespace);
-		$expected = file_get_contents(__DIR__ . '/../../../expected/KillerQueen.php');
+		$expected = file_get_contents($this->expected . '/KillerQueen.php');
 		self::assertSame($expected, $actual);
-
 	}
 
 	public function testGenerateCode3()
 	{
 		$actual = $this->generator->generateModelCode('testdb', 'slightly_mad', $this->namespace);
-		$expected = file_get_contents(__DIR__ . '/../../../expected/SlightlyMad.php');
+		$expected = file_get_contents($this->expected . '/SlightlyMad.php');
 		self::assertSame($expected, $actual);
 	}
 
@@ -48,24 +50,24 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 	public function testGenerate1()
 	{
 		$this->generator->generateModel('testdb', 'bohemian_rhapsody', $this->namespace);
-		$actual = file_get_contents(__DIR__ . '/../../../../target/God/Save/The/Queen/BohemianRhapsody.php');
-		$expected = file_get_contents(__DIR__ . '/../../../expected/BohemianRhapsody.php');
+		$actual = file_get_contents($this->target . '/God/Save/The/Queen/BohemianRhapsody.php');
+		$expected = file_get_contents($this->expected . '/BohemianRhapsody.php');
 		self::assertSame($expected, $actual);
 	}
 
 	public function testGenerate2()
 	{
 		$this->generator->generateModel('testdb', 'killer_queen', $this->namespace);
-		$actual = file_get_contents(__DIR__ . '/../../../../target/God/Save/The/Queen/KillerQueen.php');
-		$expected = file_get_contents(__DIR__ . '/../../../expected/KillerQueen.php');
+		$actual = file_get_contents($this->target . '/God/Save/The/Queen/KillerQueen.php');
+		$expected = file_get_contents($this->expected . '/KillerQueen.php');
 		self::assertSame($expected, $actual);
 	}
 
 	public function testGenerate3()
 	{
 		$this->generator->generateModel('testdb', 'slightly_mad', $this->namespace);
-		$actual = file_get_contents(__DIR__ . '/../../../../target/God/Save/The/Queen/SlightlyMad.php');
-		$expected = file_get_contents(__DIR__ . '/../../../expected/SlightlyMad.php');
+		$actual = file_get_contents($this->target . '/God/Save/The/Queen/SlightlyMad.php');
+		$expected = file_get_contents($this->expected . '/SlightlyMad.php');
 		self::assertSame($expected, $actual);
 	}
 
@@ -75,7 +77,7 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 
 	public function testUsage1()
 	{
-		include_once(__DIR__ . '/../../../../target/God/Save/The/Queen/BohemianRhapsody.php');
+		include_once($this->target . '/God/Save/The/Queen/BohemianRhapsody.php');
 		$data = \God\Save\The\Queen\BohemianRhapsody::objects()->fetch();
 
 		$this->assertCount(1, $data);
@@ -89,7 +91,7 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 
 	public function testUsage2()
 	{
-		include_once(__DIR__ . '/../../../../target/God/Save/The/Queen/KillerQueen.php');
+		include_once($this->target . '/God/Save/The/Queen/KillerQueen.php');
 		$data = \God\Save\The\Queen\KillerQueen::objects()->fetch();
 
 		$this->assertCount(1, $data);
@@ -106,7 +108,7 @@ class GenerateTest extends \PHPUnit_Framework_TestCase
 
 	public function testUsage3()
 	{
-		include_once(__DIR__ . '/../../../../target/God/Save/The/Queen/SlightlyMad.php');
+		include_once($this->target . '/God/Save/The/Queen/SlightlyMad.php');
 		$data = \God\Save\The\Queen\SlightlyMad::objects()->fetch();
 
 		$this->assertCount(1, $data);

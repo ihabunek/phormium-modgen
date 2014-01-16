@@ -2,20 +2,35 @@
 
 namespace Phormium\ModGen;
 
+use DateTime;
 use Phar;
 
 use Symfony\Component\Finder\Finder;
 
 class PharCompiler
 {
-    public function compile($target = "modgen.phar")
+    private $version;
+
+    public function __construct()
     {
-        $version = trim(`git describe`);
-        if (empty($version)) {
+        $this->version = trim(`git describe`);
+        if (empty($this->version)) {
             throw new \Exception("Unable to detect version.");
         }
 
-        echo "Compiling PHAR for Modgen $version\n";
+        $date = trim(`git log -n1 --pretty=%ci HEAD`);
+        if (empty($date)) {
+            throw new \Exception("Unable to detect release date.");
+        }
+        $dt = new DateTime($date);
+        $this->releaseDate = $dt->format("Y-m-d");
+    }
+
+    public function compile($target = "modgen.phar")
+    {
+        echo "Compiling PHAR for Phormium ModGen\n";
+        echo "Version: {$this->version}\n";
+        echo "Release date: {$this->releaseDate}\n";
 
         if (file_exists($target)) {
             unlink($target);
@@ -56,6 +71,13 @@ class PharCompiler
             $path = ltrim($path, '/');
 
             $contents = file_get_contents($fullPath);
+
+            // Add version and release date
+            if ($path === 'src/Phormium/ModGen/Console/Application.php') {
+                $contents = str_replace('@modgen_version@', $this->version, $contents);
+                $contents = str_replace('@modgen_release_date@', $this->releaseDate, $contents);
+            }
+
             $phar->addFromString($path, $contents);
         }
 
