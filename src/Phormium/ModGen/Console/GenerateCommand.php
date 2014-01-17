@@ -105,7 +105,7 @@ class GenerateCommand extends Command
         }
 
         $target = realpath($target);
-
         $output->writeln("<info>Target:</info> $target");
+        return $target;
     }
 }
