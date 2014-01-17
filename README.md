@@ -3,15 +3,30 @@ Phormium Model Generator
 
 Model class generator for [Phormium](https://github.com/ihabunek/phormium).
 
-Currently supports MySQL, PostgreSQL and Informix.
+Features support for MySQL, PostgreSQL, SQLite and Informix.
 
 [![Build Status](https://travis-ci.org/ihabunek/phormium-modgen.png)](https://travis-ci.org/ihabunek/phormium)
-
 
 Installation
 ------------
 
-Install using [Composer](http://getcomposer.org/).
+PHAR
+~~~~
+
+The simplest way to use ModGen is to download the latest version packed in a
+PHAR archive and run it:
+
+```
+php modgen.phar
+```
+
+This is abbreviated to `modgen` in the usage examples.
+
+Packagist
+~~~~~~~~~
+
+You can also install from [Packagist](https://packagist.org/) using using
+[Composer](http://getcomposer.org/).
 
 Create a file called `composer.json` with the following contents:
 ```json
@@ -28,8 +43,25 @@ php composer.phar install
 ```
 
 The script for running modgen will be `vendor/bin/modgen` for *nix and Mac and
-`vendor\bin\modgen.bat` for Windows users. This is abbrevated to `modgen` in the
-usage examples.
+`vendor\bin\modgen.bat` for Windows users. This is abbreviated to `modgen` in
+the usage examples.
+
+Creating the PHAR
+-----------------
+
+To compile ModGen into a PHAR, clone the project from GitHub:
+
+```
+git clone https://github.com/ihabunek/phormium-modgen.git
+```
+
+Then run:
+
+```
+php bin\compile
+```
+
+`modgen.phar` will be generated in your working directory.
 
 Usage
 -----
