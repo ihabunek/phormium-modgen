@@ -47,7 +47,7 @@ class PharCompiler
 
         $phar->stopBuffering();
 
-        echo "Compiled: $target\n";
+        echo "Compiled: " . realpath($target) . "\n";
     }
 
     private function addFiles($phar)
