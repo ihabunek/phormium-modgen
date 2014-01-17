@@ -81,18 +81,18 @@ directory.
 
 Generate models for all tables in a database:
 ```
-modgen [options] <database>
+modgen generate [options] <database>
 ```
 
 Generate models for specified tables in a database:
 ```
-modgen [options] <database> [table1] ... [tableN]
+modgen generate [options] <database> [table1] ... [tableN]
 ```
 
 Options:
 
-*  `--config`    - Path to the config file. (default: "config.json")
-*  `--target`    - Target folder where the model will be generated. (default: "target")
+*  `--config` - Path to the config file. (default: "config.json")
+*  `--target` - Target folder where the model will be generated (defaults to current working directory)
 *  `--namespace` - The PHP namespace used for the model classes. (default: "")
 *  `--help (-h)` - Display the help message.
 
