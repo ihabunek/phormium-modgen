@@ -19,16 +19,13 @@ The simplest way to use ModGen is to download the latest version as a
 PHAR archive from the
 [releases page](https://github.com/ihabunek/phormium-modgen/releases) on GitHub.
 
-You can run ModGen
+You can now run ModGen:
 
 ```
 php modgen.phar
 ```
 
-This is abbreviated to `modgen` in the usage examples.
-
-You can download the PHAR from the
-[Releases page](https://github.com/ihabunek/phormium-modgen/releases) on GitHub.
+This is abbreviated to `modgen` in the [usage examples](#usage).
 
 ### Packagist
 
@@ -51,7 +48,7 @@ php composer.phar install
 
 The script for running modgen will be `vendor/bin/modgen` for *nix and Mac and
 `vendor\bin\modgen.bat` for Windows users. This is abbreviated to `modgen` in
-the usage examples.
+the [usage examples](#usage).
 
 Creating the PHAR
 -----------------
