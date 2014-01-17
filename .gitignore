@@ -1,8 +1,9 @@
-target/*
-vendor
-tmp
-php_errors.log
-composer.phar
+./phpunit.xml
 composer.lock
+composer.phar
 modgen.phar
-phpunit.xml
+php_errors.log
+target/*
+test.db
+tmp
+vendor

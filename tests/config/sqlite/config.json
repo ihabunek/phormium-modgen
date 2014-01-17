@@ -1,0 +1,9 @@
+{
+    "databases": {
+        "testdb": {
+            "dsn": "sqlite:test.db",
+            "username": "",
+            "password": ""
+        }
+    }
+}

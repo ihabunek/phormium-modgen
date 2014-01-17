@@ -10,7 +10,8 @@ class Generator
     private static $driverMap = array(
         'informix' => '\\Phormium\\ModGen\\Inspector\\InspectorInformix',
         'mysql' => '\\Phormium\\ModGen\\Inspector\\InspectorMySQL',
-        'pgsql' => '\\Phormium\\ModGen\\Inspector\\InspectorPostgreSQL'
+        'pgsql' => '\\Phormium\\ModGen\\Inspector\\InspectorPostgreSQL',
+        'sqlite' => '\\Phormium\\ModGen\\Inspector\\InspectorSQLite'
     );
 
     /** Full path to the target directory. */
