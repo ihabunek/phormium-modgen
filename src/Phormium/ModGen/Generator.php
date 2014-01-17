@@ -10,35 +10,31 @@ class Generator
     private static $driverMap = array(
         'informix' => '\\Phormium\\ModGen\\Inspector\\InspectorInformix',
         'mysql' => '\\Phormium\\ModGen\\Inspector\\InspectorMySQL',
-        'pgsql' => '\\Phormium\\ModGen\\Inspector\\InspectorPostgreSQL'
+        'pgsql' => '\\Phormium\\ModGen\\Inspector\\InspectorPostgreSQL',
+        'sqlite' => '\\Phormium\\ModGen\\Inspector\\InspectorSQLite'
     );
 
-    /** Tables to ignore. */
-    protected $ignoreTables = array();
+    /** Full path to the target directory. */
+    protected $target;
 
-    /** Relative path (from this file) to root of the target directory. */
-    protected $targetRootPath = '/../../../target/';
-
-    /** The full path to root of target directory. */
-    protected $targetRoot;
-
+    /** Namespace for model classes. */
     protected $namespace;
 
-    public function __construct($target = null, $namespace = null)
+    public function __construct($target)
     {
-        $defaultTarget = realpath(__DIR__ . '/../../../target/');
-
-        $this->targetRoot = isset($target) ? $target : $defaultTarget;
-        $this->namespace = $namespace;
+        if (!is_dir($target)) {
+            throw new \RuntimeException("Given target dir does not exist: $target");
+        }
+        $this->target = realpath($target);
     }
 
     /**
      * Determines the target directory for a Model subclass based on namespace.
      * If the directory does not exist, creates it.
      */
-    private function getTargetDirectory($namespace = null)
+    private function getTargetDirectory($namespace)
     {
-        $target = $this->targetRoot;
+        $target = $this->target;
         if (!empty($namespace)) {
             $subDir = str_replace('\\', DIRECTORY_SEPARATOR, $namespace);
             $subDir = trim($subDir, DIRECTORY_SEPARATOR);

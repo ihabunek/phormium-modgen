@@ -11,7 +11,7 @@ class InspectorTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$generator = new Generator();
+		$generator = new Generator(__DIR__);
 		$this->inspector = $generator->getInspector('testdb');
 	}
 

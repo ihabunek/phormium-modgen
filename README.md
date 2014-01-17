@@ -3,15 +3,34 @@ Phormium Model Generator
 
 Model class generator for [Phormium](https://github.com/ihabunek/phormium).
 
-Currently supports MySQL, PostgreSQL and Informix.
+ModGen generates classes which extend Phormium\Model from existing database
+tables. Currently supports MySQL, PostgreSQL, SQLite and Informix.
 
-[![Build Status](https://travis-ci.org/ihabunek/phormium-modgen.png)](https://travis-ci.org/ihabunek/phormium)
-
+[![Latest Stable Version](https://poser.pugx.org/phormium/modgen/v/stable.png)](https://packagist.org/packages/phormium/modgen)
+[![Total Downloads](https://poser.pugx.org/phormium/modgen/downloads.png)](https://packagist.org/packages/phormium/modgen)
+[![Build Status](https://travis-ci.org/ihabunek/phormium-modgen.png)](https://travis-ci.org/ihabunek/phormium-modgen)
 
 Installation
 ------------
 
-Install using [Composer](http://getcomposer.org/).
+### PHAR
+
+The simplest way to use ModGen is to download the latest version as a
+PHAR archive from the
+[releases page](https://github.com/ihabunek/phormium-modgen/releases) on GitHub.
+
+You can now run ModGen:
+
+```
+php modgen.phar
+```
+
+This is abbreviated to `modgen` in the [usage examples](#usage).
+
+### Packagist
+
+You can also install from [Packagist](https://packagist.org/) using using
+[Composer](http://getcomposer.org/).
 
 Create a file called `composer.json` with the following contents:
 ```json
@@ -28,8 +47,29 @@ php composer.phar install
 ```
 
 The script for running modgen will be `vendor/bin/modgen` for *nix and Mac and
-`vendor\bin\modgen.bat` for Windows users. This is abbrevated to `modgen` in the
-usage examples.
+`vendor\bin\modgen.bat` for Windows users. This is abbreviated to `modgen` in
+the [usage examples](#usage).
+
+Creating the PHAR
+-----------------
+
+To compile ModGen into a PHAR, clone the project from GitHub:
+```
+git clone https://github.com/ihabunek/phormium-modgen.git
+```
+
+Install the dependencies using Composer:
+```
+php composer.phar install
+```
+
+Run the compilation script:
+```
+php bin\compile
+```
+
+`modgen.phar` will be generated in your working directory.
+
 
 Usage
 -----

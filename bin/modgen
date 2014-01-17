@@ -13,9 +13,7 @@ if (file_exists($autoload)) {
 	include $autoload;
 }
 
-use Phormium\ModGen\Console\Command;
 use Phormium\ModGen\Console\Application;
 
 $application = new Application;
-$application->add(new Command);
 $application->run();
