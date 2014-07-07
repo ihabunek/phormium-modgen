@@ -103,14 +103,14 @@ Generate models for all tables in `backoffice` database, using namespace
 `Foo\Bar`:
 
 ```
-modgen --namespace=Foo\\Bar backoffice
+modgen generate --namespace=Foo\\Bar backoffice
 ```
 
 Generate models for tables `person` and `invoice` in the `backoffice` database,
 without a namespace:
 
 ```
-modgen backoffice person invoice
+modgen generate backoffice person invoice
 ```
 
 License
